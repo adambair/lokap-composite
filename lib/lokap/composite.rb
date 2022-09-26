@@ -34,11 +34,11 @@ module Lokap
     end
 
     def before_process
-      # optional
+      messages << "Composite #{self.class.name}: Starting..."
     end
 
     def after_process
-      # optional
+      messages << "Composite #{self.class.name}: Finished."
     end
   end
 
@@ -58,11 +58,11 @@ module Lokap
     end
 
     def before_perform
-      # Optional
+      composite.messages << "Step #{self.class.name}: Starting..."
     end
 
     def after_perform
-      # Optional
+      composite.messages << "Step #{self.class.name}: Finished."
     end
   end
 end
