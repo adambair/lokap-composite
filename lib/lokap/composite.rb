@@ -22,23 +22,35 @@ module Lokap
     end
 
     def process
-      before_process
+      before_all
 
       steps.each do |step|
-        step.before_perform
+        before_each
+
+        step.before_step
         step.perform
-        step.after_perform
+        step.after_step
+
+        after_each
       end
 
-      after_process
+      after_all; self
     end
 
-    def before_process
-      messages << "Composite #{self.class.name}: Starting..."
+    def before_each
+      # noop
     end
 
-    def after_process
-      messages << "Composite #{self.class.name}: Finished."
+    def after_each
+      # noop
+    end
+
+    def before_all
+      messages << "#{self.class.name} Processing..."
+    end
+
+    def after_all
+      messages << "#{self.class.name} Done."
     end
   end
 
@@ -53,16 +65,15 @@ module Lokap
     end
 
     def perform
-      raise AbstractMethodError,
-        "Child class must impelement abstract method: #{method_name}"
+      raise AbstractMethodError, "Child class must impelement method: #{method_name}"
     end
 
-    def before_perform
-      composite.messages << "Step #{self.class.name}: Starting..."
+    def before_step
+      composite.messages << "→ #{self.class.name} Performing..."
     end
 
-    def after_perform
-      composite.messages << "Step #{self.class.name}: Finished."
+    def after_step
+      composite.messages << "→ #{self.class.name} Done."
     end
   end
 end

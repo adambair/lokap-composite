@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |spec|
   spec.name    = "lokap-composite"
-  spec.version = "0.0.1"
+  spec.version = "0.0.4"
 
   spec.authors = ["Adam Bair"]
   spec.email   = ["adambair@gmail.com"]
